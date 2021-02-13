@@ -27,9 +27,11 @@ const useStyles = makeStyles({
 export default function BasicTable({users}) {
   const classes = useStyles();
 
-  //  rowColor = (user) => {
-  //   return user.gender === "male" ? classes.color1 : user.gender === "female" : classes.color2 : classes. color3
-  // } 
+  const rowColor = (gender) => {
+    return gender === "male" ? classes.color1 
+            : gender === "female" ? classes.color2 
+            : classes. color3
+  } 
   return (
     <TableContainer component={Paper}>
       <Table className={`${classes.table}`}aria-label="simple table">
@@ -42,15 +44,14 @@ export default function BasicTable({users}) {
           </TableRow>
         </TableHead>
         <TableBody>
-  {users.map((user, index) => (
-
-            <TableRow key={user.login.uuid} className={classes.color2 }>
-              <TableCell component="th" scope="row">{user.name.title}</TableCell>
-              <TableCell align="right"  className={classes.funColor}>{user.name.first}</TableCell>
-              <TableCell align="right">{user.name.last}</TableCell>
-              <TableCell align="right">{user.email}</TableCell>
-            </TableRow>
-        ))}
+        {users.map((user, index) => (
+              <TableRow key={user.login.uuid} className={rowColor(user.gender)}>
+                <TableCell component="th" scope="row">{user.name.title}</TableCell>
+                <TableCell align="right"  className={classes.funColor}>{user.name.first}</TableCell>
+                <TableCell align="right">{user.name.last}</TableCell>
+                <TableCell align="right">{user.email}</TableCell>
+              </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
